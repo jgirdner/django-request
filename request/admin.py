@@ -41,11 +41,7 @@ class RequestAdmin(admin.ModelAdmin):
     request_from.allow_tags = True
 
     def get_urls(self):
-        try:
-            from django.conf.urls import patterns, url
-        except ImportError:
-            # to keep backward (Django <= 1.4) compatibility
-            from django.conf.urls.defaults import patterns, url
+        from django.conf.urls import patterns, url, include
 
         def wrap(view):
             def wrapper(*args, **kwargs):
@@ -59,7 +55,7 @@ class RequestAdmin(admin.ModelAdmin):
         except AttributeError:
             info += (self.model._meta.module_name,)
 
-        return urlpatterns[
+        return urlpatterns [
             url(r'^overview/$', wrap(self.overview), name='%s_%s_overview' % info),
             url(r'^overview/traffic.json$', wrap(self.traffic), name='%s_%s_traffic' % info),
         ] + super(RequestAdmin, self).get_urls()

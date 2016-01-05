@@ -55,10 +55,10 @@ class RequestAdmin(admin.ModelAdmin):
         except AttributeError:
             info += (self.model._meta.module_name,)
 
-        return patterns [
+        return patterns ('',
             url(r'^overview/$', wrap(self.overview), name='%s_%s_overview' % info),
             url(r'^overview/traffic.json$', wrap(self.traffic), name='%s_%s_traffic' % info),
-        ] + super(RequestAdmin, self).get_urls()
+        ) + super(RequestAdmin, self).get_urls()
 
     def overview(self, request):
         qs = Request.objects.this_month()

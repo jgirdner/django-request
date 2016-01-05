@@ -14,13 +14,7 @@ get_verbose_name = lambda class_name: re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|
 
 class Modules(object):
     def load(self):
-        try:
-            # Django versions >= 1.9
-            from django.utils.module_loading import import_module
-        except ImportError:
-            # Django versions < 1.9
-            from django.utils.importlib import import_module
-            
+        from django.utils.module_loading import import_module
         from django.core import exceptions
 
         self._modules = []

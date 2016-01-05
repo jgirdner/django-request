@@ -39,13 +39,7 @@ def set_count(items):
 
 class Plugins(object):
     def load(self):
-        try:
-            # Django versions >= 1.9
-            from django.utils.module_loading import import_module
-        except ImportError:
-            # Django versions < 1.9
-            from django.utils.importlib import import_module
-            
+        from django.utils.module_loading import import_module
         from django.core import exceptions
 
         self._plugins = []
